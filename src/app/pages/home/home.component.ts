@@ -12,13 +12,17 @@ import { FormsModule } from '@angular/forms';
 import * as jalaali from 'jalaali-js';
 import { DialogModule } from 'primeng/dialog';
 import { JalaliDatepickerComponent } from '../detePicker.compomemt/datePiker.component';
+import { DrawerModule } from 'primeng/drawer';
+
 
 
 @Component({
     selector: 'homeComponent',
     templateUrl: 'home.component.html',
-    imports: [RouterOutlet,JsonPipe,ButtonModule,NavbarComponent,CardModule,TableModule,DatePickerModule,FormsModule,DialogModule,JalaliDatepickerComponent],
-    providers: [AppService]
+    standalone: true,
+    imports: [RouterOutlet,JsonPipe,ButtonModule,NavbarComponent,CardModule,TableModule,DatePickerModule,FormsModule,DialogModule,JalaliDatepickerComponent,DrawerModule ],
+    providers: [AppService],
+
 })
 
 export class mainPageComponent  {
@@ -27,6 +31,7 @@ export class mainPageComponent  {
   calendarGrid: (number | null)[] = [];
   monthName:string = '';
   showDialog: boolean = false;
+  showsidebar:boolean=false;
 
   newExam = {
     course: '',

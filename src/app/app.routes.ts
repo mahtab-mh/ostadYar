@@ -42,5 +42,25 @@ export const routes: Routes = [
             loadChildren:() => import('./pages/login/login.routes').then(r=>r.logInRoutes)
         }
     ]
+},
+{
+     path:'corse',
+    component:NavbarComponent,
+    children:[
+        {
+            path:'',
+            loadChildren:() => import('./pages/corse/corse.routes').then(r=>r.corseroutes)
+        }
+    ]
+
+},{
+     path:'profile',
+    component:NavbarComponent,
+    children:[
+        {
+            path:'',
+            loadChildren:() => import('./pages/profile/profile.routes').then(r=>r.profileRautes)
+        }
+    ]
 }
 ];
