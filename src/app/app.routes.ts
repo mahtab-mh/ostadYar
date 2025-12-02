@@ -62,5 +62,17 @@ export const routes: Routes = [
             loadChildren:() => import('./pages/profile/profile.routes').then(r=>r.profileRautes)
         }
     ]
+},
+{
+    path:'StudentDashboard',
+    component:NavbarComponent,
+    children:[
+        {
+            path:'',
+            loadChildren:()=> import('./pages/studentDashbord/studentDashbord.routes').then(r=>r.studentDashbord)
+
+        }
+    ]
+
 }
 ];
