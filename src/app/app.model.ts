@@ -28,3 +28,24 @@ export interface date{
   m:number
   d:number
 }
+export interface Student {
+  firstName: string;
+  lastName: string;
+  studentNumber: bigint;
+  username: string;
+}
+export interface Course {
+  id: number;
+  name: string;
+  code: string;
+  teacher: string;
+  enrolledCount: number;
+}
+export interface Exam {
+  id: number;
+  courseName: string;
+  examName: string;
+  startDate: string;
+  endDate: string;
+  roomName: string;
+}
