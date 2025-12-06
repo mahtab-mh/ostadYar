@@ -1,0 +1,97 @@
+<div class="reserve-page">
+  
+  <h2 class="page-title">رزرو سالن امتحانی</h2>
+
+  <div class="hall-grid">
+    <ng-container *ngFor="let room of roomList">
+      <div class="hall-card">
+
+        <img
+          class="hall-img"
+          [src]="getRoomImage(room)"
+        />
+
+        <p class="hall-title">{{ getRoomName(room) }}</p>
+
+        <button 
+          pButton 
+          label="رزرو سالن"
+          class="reserve-button"
+          (click)="openModal(room)">
+        </button>
+      </div>
+    </ng-container>
+  </div>
+
+  <!-- MODAL -->
+  <p-dialog 
+    [(visible)]="modalVisible" 
+    [modal]="true"
+    [style]="{width: '420px'}"
+    header="ثبت رزرو"
+  >
+    <div class="modal-content">
+
+      <input 
+        class="exam-input"
+        placeholder="نام امتحان"
+        [(ngModel)]="currentReservation.lessonName"
+      />
+
+      <jalali-datepicker 
+        (dateSelected)="onDateSelected(currentRoom, $event)"
+      >
+      </jalali-datepicker>
+
+      <div class="time-section">
+        <input type="time" [(ngModel)]="currentReservation.startTime">
+        <input type="time" [(ngModel)]="currentReservation.endTime">
+      </div>
+
+      <button class="save-modal-btn" pButton label="ثبت رزرو" (click)="saveDateTime()">
+      </button>
+
+    </div>
+  </p-dialog>
+
+
+  <!-- TABLE -->
+  <div class="saved-reservations" *ngIf="savedReservations.length > 0">
+    <h3>لیست رزروهای ثبت‌شده</h3>
+
+    <table class="reservation-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>نام امتحان</th>
+          <th>تاریخ</th>
+          <th>شروع</th>
+          <th>پایان</th>
+          <th>سالن</th>
+          <th>حذف</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let item of savedReservations; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.date }}</td>
+          <td>{{ item.startTime }}</td>
+          <td>{{ item.endTime }}</td>
+          <td>{{ item.roomName }}</td>
+
+          <td>
+            <button 
+              pButton 
+              icon="pi pi-trash"
+              class="delete-btn"
+              (click)="deleteExam(item.id)">
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

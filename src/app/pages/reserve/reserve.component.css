@@ -1,0 +1,117 @@
+.reserve-page {
+  padding: 2rem;
+  direction: rtl;
+  background: #f3f8ff;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #0a4a7a;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.hall-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+}
+
+.hall-card {
+  background: #fff;
+  border-radius: 1rem;
+  width: 240px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+  transition: 0.25s;
+}
+
+.hall-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.12);
+}
+
+.hall-img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.hall-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #0e7490;
+  margin-bottom: 1rem;
+}
+
+.reserve-button {
+  width: 100%;
+  background: #0284c7 !important;
+  border-radius: 0.7rem;
+}
+.reserve-button:hover {
+  background: #0369a1 !important;
+}
+
+.p-dialog .modal-content {
+  padding: 1.5rem;
+}
+
+.exam-input {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
+}
+
+.time-section {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.time-section input {
+  width: 48%;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+}
+
+.save-modal-btn {
+  width: 100%;
+  margin-top: 1.5rem;
+  background: #0284c7 !important;
+}
+
+.saved-reservations {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.reservation-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+
+.reservation-table th {
+  background: #e3f2fd;
+  padding: 0.8rem;
+  border-radius: 0.5rem;
+}
+
+.reservation-table td {
+  background: #fff;
+  padding: 0.7rem;
+  border-radius: 0.4rem;
+}
+
+.delete-btn {
+  background: #dc2626 !important;
+}

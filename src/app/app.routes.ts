@@ -74,5 +74,17 @@ export const routes: Routes = [
         }
     ]
 
+},
+{
+    path:'reserveroutes',
+    component:NavbarComponent,
+    children:[
+        {
+            path:'',
+            loadChildren:()=> import('./pages/reserve/reserve.routes').then(r=>r.reserveroutes)
+
+        }
+    ]
+
 }
 ];
