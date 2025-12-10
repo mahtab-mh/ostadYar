@@ -1,97 +1,77 @@
-<div class="reserve-page">
-  
-  <h2 class="page-title">رزرو سالن امتحانی</h2>
+<div dir="rtl" class="bg-[#f3f7ff] min-h-screen p-6 flex flex-col gap-6">
 
-  <div class="hall-grid">
-    <ng-container *ngFor="let room of roomList">
-      <div class="hall-card">
-
-        <img
-          class="hall-img"
-          [src]="getRoomImage(room)"
-        />
-
-        <p class="hall-title">{{ getRoomName(room) }}</p>
-
-        <button 
-          pButton 
-          label="رزرو سالن"
-          class="reserve-button"
-          (click)="openModal(room)">
-        </button>
-      </div>
-    </ng-container>
+  <!-- عنوان -->
+  <div class="flex justify-between items-center bg-white rounded-2xl border border-blue-100 p-5 shadow-sm">
+    <h2 class="text-xl font-bold text-blue-700">رزرو سالن امتحانی</h2>
+    <span class="text-blue-500 font-medium">انتخاب تاریخ</span>
   </div>
 
-  <!-- MODAL -->
-  <p-dialog 
-    [(visible)]="modalVisible" 
-    [modal]="true"
-    [style]="{width: '420px'}"
-    header="ثبت رزرو"
-  >
-    <div class="modal-content">
+  <!-- تقویم شمسی + لیست سالن‌ها -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-      <input 
-        class="exam-input"
-        placeholder="نام امتحان"
-        [(ngModel)]="currentReservation.lessonName"
-      />
-
+    <!-- 📅 تاریخ شمسی -->
+    <div class="bg-white rounded-2xl border border-blue-100 p-5 shadow-sm">
       <jalali-datepicker 
-        (dateSelected)="onDateSelected(currentRoom, $event)"
-      >
+        (dateSelected)="onDateSelected($event)">
       </jalali-datepicker>
+    </div>
 
-      <div class="time-section">
-        <input type="time" [(ngModel)]="currentReservation.startTime">
-        <input type="time" [(ngModel)]="currentReservation.endTime">
+    <!-- 🎯 نمایش سالن‌ها -->
+    <div class="lg:col-span-2 bg-white rounded-2xl border border-blue-100 p-5 shadow-sm">
+
+      <h3 class="text-lg font-semibold text-blue-700 mb-4">
+        سالن‌های روز انتخاب‌شده
+      </h3>
+
+      <div *ngIf="daySlots.length === 0" class="text-gray-400">
+        لطفاً یک تاریخ انتخاب کنید
       </div>
 
-      <button class="save-modal-btn" pButton label="ثبت رزرو" (click)="saveDateTime()">
-      </button>
+      <div *ngFor="let slot of daySlots"
+        class="mb-4 p-4 bg-[#f9fbff] border border-blue-100 rounded-xl">
+
+        <h4 class="text-blue-600 font-bold mb-3">
+          {{ slot.time }}
+        </h4>
+
+        <div class="flex flex-wrap gap-3">
+          <div *ngFor="let room of slot.rooms"
+            class="flex items-center gap-3 px-4 py-2 rounded-xl border text-sm"
+            [ngClass]="room.reserved ? 'bg-red-50 border-red-200 text-red-700' : 'bg-blue-50 border-blue-200 text-blue-700'"
+          >
+            {{ room.name }}
+
+            <button
+              *ngIf="!room.reserved"
+              class="px-3 py-1 text-xs rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
+              (click)="selectRoom(slot, room)">
+              رزرو
+            </button>
+          </div>
+        </div>
+
+      </div>
 
     </div>
-  </p-dialog>
-
-
-  <!-- TABLE -->
-  <div class="saved-reservations" *ngIf="savedReservations.length > 0">
-    <h3>لیست رزروهای ثبت‌شده</h3>
-
-    <table class="reservation-table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>نام امتحان</th>
-          <th>تاریخ</th>
-          <th>شروع</th>
-          <th>پایان</th>
-          <th>سالن</th>
-          <th>حذف</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr *ngFor="let item of savedReservations; let i = index">
-          <td>{{ i + 1 }}</td>
-          <td>{{ item.name }}</td>
-          <td>{{ item.date }}</td>
-          <td>{{ item.startTime }}</td>
-          <td>{{ item.endTime }}</td>
-          <td>{{ item.roomName }}</td>
-
-          <td>
-            <button 
-              pButton 
-              icon="pi pi-trash"
-              class="delete-btn"
-              (click)="deleteExam(item.id)">
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
   </div>
+
+  <!-- دیالوگ رزرو -->
+  <p-dialog header="تأیید رزرو" [(visible)]="reserveDialog" [modal]="true" [closable]="false">
+    
+    <div class="p-3 text-gray-600">
+      <p><strong>تاریخ:</strong> {{ selectedDate }}</p>
+      <p><strong>ساعت:</strong> {{ selectedSlot?.time }}</p>
+      <p><strong>سالن:</strong> {{ selectedRoom?.name }}</p>
+    </div>
+
+    <ng-template pTemplate="footer">
+      <button pButton class="p-button-text" label="لغو" (click)="reserveDialog=false"></button>
+      <button pButton class="p-button" style="background:#2563eb;border:none"
+        label="تأیید"
+        (click)="confirmReservation()"
+      ></button>
+    </ng-template>
+
+  </p-dialog>
 
 </div>

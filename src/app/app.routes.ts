@@ -76,7 +76,7 @@ export const routes: Routes = [
 
 },
 {
-    path:'reserveroutes',
+    path:'reserver',
     component:NavbarComponent,
     children:[
         {
